@@ -20,6 +20,9 @@ class SoulslikeBot(commands.Bot):
             guild = discord.Object(config.GUILD_ID)
             self.tree.copy_global_to(guild=guild)
             await self.tree.sync(guild=guild)
+            # apaga comandos GLOBAIS que sobraram de código antigo (ex.: /status_youtube), para não aparecerem duplicados
+            self.tree.clear_commands(guild=None)
+            await self.tree.sync()
         else:  # global pode levar até 1h
             await self.tree.sync()
 
